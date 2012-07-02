@@ -1,5 +1,8 @@
+GHP 2012 Git Instructions
+-------------------------
+
 1. Start or continue a new feature.
-   Start: `git branch <branchname>`
+   Start: `git branch <branchname> && git checkout <branchname>`
    Continue: `git checkout <branchname>`
 2. [Do work]
 3. Commit. `git add . && git commit`
