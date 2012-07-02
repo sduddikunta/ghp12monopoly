@@ -1,0 +1,14 @@
+1. Start or continue a new feature.
+   Start: `git branch <branchname>`
+   Continue: `git checkout <branchname>`
+
+2. [Do work]
+3. Commit. `git add . && git commit`
+4. Repeat 2-3 for the current feature/bugfix/whatever.
+5. TEST!
+   When you are ready to push changes:
+6. `git rebase -i master`
+7. `git rebase master`
+8. `git checkout master`
+9. `git merge <branchname>`
+10. `git push`
