@@ -10,9 +10,8 @@ GHP 2012 Git Instructions
 5. TEST!
    When you are ready to push changes:
 6. `git rebase -i master`
-7. `git rebase master`
-8. `git checkout master`
-9. `git merge <branchname>`
-10. `git push`
+7. `git checkout master`
+8. `git merge <branchname>`
+9. `git push`
 
 Siddu Duddikunta and Raj Patel
