@@ -1,7 +1,6 @@
 1. Start or continue a new feature.
    Start: `git branch <branchname>`
    Continue: `git checkout <branchname>`
-
 2. [Do work]
 3. Commit. `git add . && git commit`
 4. Repeat 2-3 for the current feature/bugfix/whatever.
