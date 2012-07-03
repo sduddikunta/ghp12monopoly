@@ -1,17 +1,13 @@
 GHP 2012 Git Instructions
 -------------------------
 
-1. Start or continue a new feature.
-   Start: `git branch <branchname> && git checkout <branchname>`
-   Continue: `git checkout <branchname>`
-2. [Do work]
-3. Commit. `git add . && git commit`
-4. Repeat 2-3 for the current feature/bugfix/whatever.
-5. TEST!
+1. [Do work]
+2. Commit. `git add . && git commit`
+3. Repeat 2-3 for the current feature/bugfix/whatever.
+4. TEST!
    When you are ready to push changes:
-6. `git rebase -i master`
-7. `git checkout master`
-8. `git merge <branchname>`
-9. `git push`
+6. `git fetch`
+7. `git rebase origin/master`
+8. `git push`
 
 Siddu Duddikunta and Raj Patel
