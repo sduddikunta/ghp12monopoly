@@ -27,4 +27,7 @@ public class Player {
 	public void changeMoney(int howMuch){
 		money = (money+howMuch);
 	}
+	public void addProperty(Property p){
+		properties.add(p);
+	}
 }
