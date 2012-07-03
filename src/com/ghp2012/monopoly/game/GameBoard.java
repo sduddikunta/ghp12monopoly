@@ -31,6 +31,19 @@ public class GameBoard {
 			queue.add(p);
 		return p;
 	}
+	
+	/**
+	 * Begin a new game by clearing the queue and re-randomizing it.
+	 */
+	public void beginGame() {
+		queue.clear();
+		ArrayList<Player> p = (ArrayList<Player>) players.clone();
+		while (!p.isEmpty()) {
+			int r = random.nextInt(0, p.size());
+			queue.add(p.get(r));
+			p.remove(r);
+		}
+	}
 
 	// Getters, setters, other stuff
 	public ArrayList<Player> getPlayers() {
