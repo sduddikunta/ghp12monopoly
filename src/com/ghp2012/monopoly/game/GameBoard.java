@@ -19,7 +19,7 @@ public class GameBoard {
 	private ArrayBlockingQueue<Card> communityCards;
 	private ArrayBlockingQueue<Player> queue;
 	private ArrayList<Property> properties;
-	
+
 	/**
 	 * Makes a new gameboard.
 	 */
@@ -43,9 +43,9 @@ public class GameBoard {
 			queue.add(p);
 		return p;
 	}
-	
+
 	/**
-	 * Begin a new game by clearing the queue and re-randomizing it.
+	 * Begin a new game by clearing the queues and re-randomizing them.
 	 */
 	public void beginGame() {
 		queue.clear();
@@ -55,35 +55,57 @@ public class GameBoard {
 			queue.add(p.get(r));
 			p.remove(r);
 		}
+		ArrayList<Card> cards = new ArrayList<Card>();
+		communityCards.drainTo(cards);
+		while (!cards.isEmpty()) {
+			int r = random.nextInt(0, p.size());
+			communityCards.add(cards.get(r));
+			cards.remove(r);
+		}
+		cards = new ArrayList<Card>();
+		chanceCards.drainTo(cards);
+		while (!cards.isEmpty()) {
+			int r = random.nextInt(0, p.size());
+			chanceCards.add(cards.get(r));
+			cards.remove(r);
+		}
 	}
+
 	/**
 	 * Get the next community chest card from the top of the pile.
+	 * 
 	 * @return the card
 	 */
 	public Card getNextCommunityCard() {
 		Card c = communityCards.poll();
-		if (c == null) return null;
-		if (c.shouldReplace()) communityCards.add(c);
+		if (c == null)
+			return null;
+		if (c.shouldReplace())
+			communityCards.add(c);
 		return c;
 	}
-	
+
 	/**
 	 * Get the next chance card from the top of the pile.
+	 * 
 	 * @return the card
 	 */
 	public Card getNextChanceCard() {
 		Card c = chanceCards.poll();
-		if (c == null) return null;
-		if (c.shouldReplace()) chanceCards.add(c);
+		if (c == null)
+			return null;
+		if (c.shouldReplace())
+			chanceCards.add(c);
 		return c;
 	}
-	
+
 	/**
 	 * Return a random integer between 1 and 12.
+	 * 
 	 * @return a roll of the dice
 	 */
-	public int rollDice(){
-		return random.nextInt(1,13);
+	public int rollDice() {
+		return random.nextInt(1, 13);
 	}
 
 	// Getters, setters, other stuff
@@ -102,15 +124,15 @@ public class GameBoard {
 	public void removePlayer(Player p) {
 		players.remove(p);
 	}
-	
+
 	public void addChanceCard(Card c) {
 		chanceCards.add(c);
 	}
-	
+
 	public void addCommunityChestCard(Card c) {
 		communityCards.add(c);
 	}
-	
+
 	public void addProperty(Property p) {
 		properties.add(p);
 	}
