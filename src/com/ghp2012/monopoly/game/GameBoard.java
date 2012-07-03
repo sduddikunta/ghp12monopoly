@@ -15,8 +15,8 @@ import com.ghp2012.monopoly.sim.SecureRandomSource;
 public class GameBoard {
 	private RandomSource random = new SecureRandomSource();
 	private ArrayList<Player> players;
-	private ArrayList<ChanceCard> chanceCards;
-	private ArrayList<CommunityChestCard> communityCards;
+	private ArrayList<Card> chanceCards;
+	private ArrayList<Card> communityCards;
 	private ArrayBlockingQueue<Player> queue;
 	private ArrayList<Property> properties;
 	
