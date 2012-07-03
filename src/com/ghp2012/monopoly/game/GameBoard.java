@@ -21,7 +21,7 @@ public class GameBoard {
 	private ArrayList<Property> properties;
 	
 	/**
-	 * Makes a new gameboard. 
+	 * Makes a new gameboard.
 	 */
 	public GameBoard() {
 		players = new ArrayList<Player>();
@@ -56,6 +56,27 @@ public class GameBoard {
 			p.remove(r);
 		}
 	}
+	/**
+	 * Get the next community chest card from the top of the pile.
+	 * @return the card
+	 */
+	public Card getNextCommunityCard() {
+		Card c = communityCards.poll();
+		if (c == null) return null;
+		if (c.shouldReplace()) communityCards.add(c);
+		return c;
+	}
+	
+	/**
+	 * Get the next chance card from the top of the pile.
+	 * @return the card
+	 */
+	public Card getNextChanceCard() {
+		Card c = chanceCards.poll();
+		if (c == null) return null;
+		if (c.shouldReplace()) chanceCards.add(c);
+		return c;
+	}
 	
 	/**
 	 * Return a random integer between 1 and 12.
@@ -80,5 +101,17 @@ public class GameBoard {
 
 	public void removePlayer(Player p) {
 		players.remove(p);
+	}
+	
+	public void addChanceCard(Card c) {
+		chanceCards.add(c);
+	}
+	
+	public void addCommunityChestCard(Card c) {
+		communityCards.add(c);
+	}
+	
+	public void addProperty(Property p) {
+		properties.add(p);
 	}
 }
