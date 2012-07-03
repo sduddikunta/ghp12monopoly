@@ -9,7 +9,16 @@ public class Player {
 	
 	private String name;
 	private int money;
-	private String property;
 	
+	public Player(String name, int money) {
+		this.name = name;
+	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public int getMoney() {
+		return money;
+	}
 }

@@ -18,6 +18,11 @@ public class GameBoard {
 	private ArrayList<ChanceCard> chanceCards;
 	private ArrayList<CommunityChestCard> communityCards;
 	private ArrayBlockingQueue<Player> queue;
+	
+	public GameBoard() {
+		players = new ArrayList<Player>();
+		queue = new ArrayBlockingQueue<Player>(50);
+	}
 
 	/**
 	 * Returns the next player in the queue, adding the player to the end of the
