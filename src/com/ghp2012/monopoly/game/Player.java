@@ -6,5 +6,10 @@ package com.ghp2012.monopoly.game;
  * @author Raj Patel
  */
 public class Player {
-
+	
+	private String name;
+	private int money;
+	private String property;
+	
+	
 }
