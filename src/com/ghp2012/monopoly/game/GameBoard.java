@@ -3,6 +3,9 @@ package com.ghp2012.monopoly.game;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import com.ghp2012.monopoly.sim.RandomSource;
+import com.ghp2012.monopoly.sim.SecureRandomSource;
+
 /**
  * Represents the base monopoly gameboard.
  * 
@@ -10,6 +13,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Raj Patel
  */
 public class GameBoard {
+	private RandomSource random = new SecureRandomSource();
 	private ArrayList<Player> players;
 	private ArrayList<ChanceCard> chanceCards;
 	private ArrayList<CommunityChestCard> communityCards;
@@ -44,4 +48,8 @@ public class GameBoard {
 	public void removePlayer(Player p) {
 		players.remove(p);
 	}
+	public int rollDice(){
+		return(random.nextInt(1,13));
+	}
+	
 }
