@@ -1,9 +1,12 @@
 package com.ghp2012.monopoly.game;
 
-public class Property {
-	private String name;
+public enum Property {
+	
+	ST_JAMES_PLACE("St. James Place");
+	
+	private final String name;
 
-	public Property(String name) {
+	private Property(String name) {
 		this.name = name;
 	}
 	
