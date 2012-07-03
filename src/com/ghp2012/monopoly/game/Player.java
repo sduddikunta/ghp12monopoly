@@ -24,4 +24,7 @@ public class Player {
 	public int getMoney() {
 		return money;
 	}
+	public void changeMoney(int howMuch){
+		money = (money+howMuch);
+	}
 }
