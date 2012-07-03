@@ -20,9 +20,15 @@ public class GameBoard {
 	private ArrayBlockingQueue<Player> queue;
 	private ArrayList<Property> properties;
 	
+	/**
+	 * Makes a new gameboard. 
+	 */
 	public GameBoard() {
 		players = new ArrayList<Player>();
 		queue = new ArrayBlockingQueue<Player>(50);
+		chanceCards = new ArrayBlockingQueue<Card>(50);
+		communityCards = new ArrayBlockingQueue<Card>(50);
+		properties = new ArrayList<Property>();
 	}
 
 	/**
@@ -50,6 +56,14 @@ public class GameBoard {
 			p.remove(r);
 		}
 	}
+	
+	/**
+	 * Return a random integer between 1 and 12.
+	 * @return a roll of the dice
+	 */
+	public int rollDice(){
+		return random.nextInt(1,13);
+	}
 
 	// Getters, setters, other stuff
 	public ArrayList<Player> getPlayers() {
@@ -67,8 +81,4 @@ public class GameBoard {
 	public void removePlayer(Player p) {
 		players.remove(p);
 	}
-	public int rollDice(){
-		return(random.nextInt(1,13));
-	}
-	
 }
