@@ -18,6 +18,7 @@ public class GameBoard {
 	private ArrayList<ChanceCard> chanceCards;
 	private ArrayList<CommunityChestCard> communityCards;
 	private ArrayBlockingQueue<Player> queue;
+	private ArrayList<Property> properties;
 	
 	public GameBoard() {
 		players = new ArrayList<Player>();
