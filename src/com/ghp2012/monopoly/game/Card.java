@@ -61,6 +61,31 @@ public class Card {
 			card = c;
 		}
 	}
+	public enum CommunityChestCard{
+		ADV_TO_GO(new Card("adv_to_go", "Advance to Go (Collect $200) ", true)),
+		BANK_ERROR_IN_FAVOR(new Card("bank_error_in_favor", "Bank error in your favor – collect $200 ", true)),
+		DOCTOR_FEES(new Card("doctor_fees", "Doctor's fees – Pay $50 ", true)),
+		OUT_OF_JAIL(new Card("out_of_jail", "Get Out of Jail Free – this card may be kept until needed, or sold", false)),
+		GO_TO_JAIL(new Card("go_to_jail", "Go to Jail – go directly to jail – Do not pass Go, do not collect $200 ", true)),
+		BIRTHDAY(new Card("birthday", "It is your birthday - Collect $10 from each player ", true)),
+		GRAND_OPERA(new Card("grand_opera", "Grand Opera Night – collect $50 from every player for opening night seats", true)),
+		INCOME_TAX_REFUND(new Card("income_tax_refund", "Income Tax refund – collect $20 ", true)),
+		LIFE_INSURANCE_MATURES(new Card("life_insurance_matures", "Life Insurance Matures – collect $100 ", true)),
+		PAY_HOSPITAL_FEES(new Card("pay_hospital_fees", "Pay Hospital Fees of $100 ", true)),
+		PAY_SCHOOL_FEES(new Card("pay_school_fees", "Pay School Fees of $50 ", true)),
+		RECEIVE_CONSULTANCY_FEE(new Card("receive_consultancy_fee", "Receive $25 Consultancy Fee ", true)),
+		STREET_REPAIRS(new Card("street_repairs", "You are assessed for street repairs – $40 per house, $115 per hotel ", true)),
+		SECOND_PRIZE_BEAUTY(new Card("second_prize_beauty","You have won second prize in a beauty contest– collect $10 ", true)),
+		INHERITANCE(new Card("inheritance", "You inherit $100 ", true)),
+		SALE_OF_STOCK(new Card("sale_of_stock", "From sale of stock you get $50 ", true)),
+		HOLIDAY_FUND_MATURES(new Card("holiday_fund_matures", "Holiday Fund matures - Receive $100 ", true));
+		
+		public final Card card;
+
+		private CommunityChestCard(Card c) {
+			card = c;
+		}
+	}
 
 	private String name;
 	private String description;

@@ -2,6 +2,7 @@ package com.ghp2012.monopoly.game;
 
 public enum Property {
 	//Double the normal rents.
+	//Utility rents need to be addressed.
 	MEDITERRANEAN_AVENUE("Mediterranean Avenue", 60, 2, 10, 30, 90, 160, 250),
 	BALTIC_AVENUE("Baltic Avenue", 60, 4, 20, 60, 180, 320, 450),
 	READING_RAILROAD("Reading Railroad", 200, 200, 200, 200, 200, 200, 200),
