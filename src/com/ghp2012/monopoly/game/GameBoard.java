@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import com.ghp2012.monopoly.game.Card.ChanceCard;
+import com.ghp2012.monopoly.game.Card.CommunityChestCard;
 import com.ghp2012.monopoly.sim.RandomSource;
 import com.ghp2012.monopoly.sim.SecureRandomSource;
 
@@ -19,7 +20,7 @@ public class GameBoard {
 	private RandomSource random = new SecureRandomSource();
 	private ArrayList<Player> players;
 	private ArrayBlockingQueue<ChanceCard> chanceCards;
-	private ArrayBlockingQueue<Card> communityCards;
+	private ArrayBlockingQueue<CommunityChestCard> communityCards;
 	private ArrayBlockingQueue<Player> queue;
 	private ArrayList<Property> properties;
 
@@ -30,7 +31,7 @@ public class GameBoard {
 		players = new ArrayList<Player>();
 		queue = new ArrayBlockingQueue<Player>(50);
 		chanceCards = new ArrayBlockingQueue<ChanceCard>(50);
-		communityCards = new ArrayBlockingQueue<Card>(50);
+		communityCards = new ArrayBlockingQueue<CommunityChestCard>(50);
 		properties = new ArrayList<Property>();
 	}
 
@@ -58,18 +59,17 @@ public class GameBoard {
 			queue.add(p.get(r));
 			p.remove(r);
 		}
-		/*ArrayList<Card> cards = new ArrayList<Card>();
-		communityCards.drainTo(cards);
+		List<CommunityChestCard> cards = Arrays.asList(CommunityChestCard.values());
 		while (!cards.isEmpty()) {
 			int r = random.nextInt(0, p.size());
 			communityCards.add(cards.get(r));
 			cards.remove(r);
-		}*/
-		List<ChanceCard> cards = Arrays.asList(ChanceCard.values());
-		while (!cards.isEmpty()) {
+		}
+		List<ChanceCard> ccards = Arrays.asList(ChanceCard.values());
+		while (!ccards.isEmpty()) {
 			int r = random.nextInt(0, p.size());
-			chanceCards.add(cards.get(r));
-			cards.remove(r);
+			chanceCards.add(ccards.get(r));
+			ccards.remove(r);
 		}
 	}
 
@@ -78,11 +78,11 @@ public class GameBoard {
 	 * 
 	 * @return the card
 	 */
-	public Card getNextCommunityCard() {
-		Card c = communityCards.poll();
+	public CommunityChestCard getNextCommunityCard() {
+		CommunityChestCard c = communityCards.poll();
 		if (c == null)
 			return null;
-		if (c.shouldReplace())
+		if (c.card.shouldReplace())
 			communityCards.add(c);
 		return c;
 	}
@@ -131,7 +131,7 @@ public class GameBoard {
 		chanceCards.add(c);
 	}
 
-	public void addCommunityChestCard(Card c) {
+	public void addCommunityChestCard(CommunityChestCard c) {
 		communityCards.add(c);
 	}
 
