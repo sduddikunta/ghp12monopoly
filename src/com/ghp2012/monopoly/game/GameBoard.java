@@ -1,8 +1,11 @@
 package com.ghp2012.monopoly.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import com.ghp2012.monopoly.game.Card.ChanceCard;
 import com.ghp2012.monopoly.sim.RandomSource;
 import com.ghp2012.monopoly.sim.SecureRandomSource;
 
@@ -15,7 +18,7 @@ import com.ghp2012.monopoly.sim.SecureRandomSource;
 public class GameBoard {
 	private RandomSource random = new SecureRandomSource();
 	private ArrayList<Player> players;
-	private ArrayBlockingQueue<Card> chanceCards;
+	private ArrayBlockingQueue<ChanceCard> chanceCards;
 	private ArrayBlockingQueue<Card> communityCards;
 	private ArrayBlockingQueue<Player> queue;
 	private ArrayList<Property> properties;
@@ -26,7 +29,7 @@ public class GameBoard {
 	public GameBoard() {
 		players = new ArrayList<Player>();
 		queue = new ArrayBlockingQueue<Player>(50);
-		chanceCards = new ArrayBlockingQueue<Card>(50);
+		chanceCards = new ArrayBlockingQueue<ChanceCard>(50);
 		communityCards = new ArrayBlockingQueue<Card>(50);
 		properties = new ArrayList<Property>();
 	}
@@ -55,15 +58,14 @@ public class GameBoard {
 			queue.add(p.get(r));
 			p.remove(r);
 		}
-		ArrayList<Card> cards = new ArrayList<Card>();
+		/*ArrayList<Card> cards = new ArrayList<Card>();
 		communityCards.drainTo(cards);
 		while (!cards.isEmpty()) {
 			int r = random.nextInt(0, p.size());
 			communityCards.add(cards.get(r));
 			cards.remove(r);
-		}
-		cards = new ArrayList<Card>();
-		chanceCards.drainTo(cards);
+		}*/
+		List<ChanceCard> cards = Arrays.asList(ChanceCard.values());
 		while (!cards.isEmpty()) {
 			int r = random.nextInt(0, p.size());
 			chanceCards.add(cards.get(r));
@@ -90,11 +92,11 @@ public class GameBoard {
 	 * 
 	 * @return the card
 	 */
-	public Card getNextChanceCard() {
-		Card c = chanceCards.poll();
+	public ChanceCard getNextChanceCard() {
+		ChanceCard c = chanceCards.poll();
 		if (c == null)
 			return null;
-		if (c.shouldReplace())
+		if (c.card.shouldReplace())
 			chanceCards.add(c);
 		return c;
 	}
@@ -125,7 +127,7 @@ public class GameBoard {
 		players.remove(p);
 	}
 
-	public void addChanceCard(Card c) {
+	public void addChanceCard(ChanceCard c) {
 		chanceCards.add(c);
 	}
 
