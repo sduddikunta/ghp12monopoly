@@ -23,6 +23,7 @@ public class GameBoard {
 	private ArrayBlockingQueue<CommunityChestCard> communityCards;
 	private ArrayBlockingQueue<Player> queue;
 	private List<Property> properties;
+	private List<BoardSpace> spaces;
 
 	/**
 	 * Makes a new gameboard.
@@ -33,6 +34,7 @@ public class GameBoard {
 		chanceCards = new ArrayBlockingQueue<ChanceCard>(50);
 		communityCards = new ArrayBlockingQueue<CommunityChestCard>(50);
 		properties = Arrays.asList(Property.values());
+		spaces = Arrays.asList(BoardSpace.values());
 	}
 
 	/**

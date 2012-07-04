@@ -12,6 +12,7 @@ public class Player {
 	private String name;
 	private int money;
 	private ArrayList<Property> properties;
+	private int location = 0;
 	
 	public Player(String name, int money) {
 		this.name = name;
