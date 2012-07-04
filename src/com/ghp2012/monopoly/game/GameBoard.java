@@ -22,7 +22,7 @@ public class GameBoard {
 	private ArrayBlockingQueue<ChanceCard> chanceCards;
 	private ArrayBlockingQueue<CommunityChestCard> communityCards;
 	private ArrayBlockingQueue<Player> queue;
-	private ArrayList<Property> properties;
+	private List<Property> properties;
 
 	/**
 	 * Makes a new gameboard.
@@ -32,7 +32,7 @@ public class GameBoard {
 		queue = new ArrayBlockingQueue<Player>(50);
 		chanceCards = new ArrayBlockingQueue<ChanceCard>(50);
 		communityCards = new ArrayBlockingQueue<CommunityChestCard>(50);
-		properties = new ArrayList<Property>();
+		properties = Arrays.asList(Property.values());
 	}
 
 	/**
