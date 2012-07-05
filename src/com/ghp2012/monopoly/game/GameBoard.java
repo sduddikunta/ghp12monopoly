@@ -116,8 +116,8 @@ public class GameBoard {
 	 * 
 	 * @return a roll of the dice
 	 */
-	public int rollDice() {
-		return random.nextInt(1, 13);
+	public int[] rollDice() {
+		return new int[]{random.nextInt(1, 7), random.nextInt(1, 7)};
 	}
 
 	// Getters, setters, other stuff
@@ -151,7 +151,7 @@ public class GameBoard {
 	
 	public void assignProperty(Property p, Player player) {
 		map.put(p, player);
-		player.changeMoney(-p.base);
+		player.changeMoney(-p.initialPrice);
 	}
 	
 	public BoardSpace getSpace(int i) {
