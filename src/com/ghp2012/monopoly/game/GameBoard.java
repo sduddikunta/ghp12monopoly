@@ -68,13 +68,13 @@ public class GameBoard {
 		}
 		List<CommunityChestCard> cards = Arrays.asList(CommunityChestCard.values());
 		while (!cards.isEmpty()) {
-			int r = random.nextInt(0, p.size());
+			int r = random.nextInt(0, cards.size());
 			communityCards.add(cards.get(r));
 			cards.remove(r);
 		}
 		List<ChanceCard> ccards = Arrays.asList(ChanceCard.values());
 		while (!ccards.isEmpty()) {
-			int r = random.nextInt(0, p.size());
+			int r = random.nextInt(0, ccards.size());
 			chanceCards.add(ccards.get(r));
 			ccards.remove(r);
 		}
@@ -151,6 +151,7 @@ public class GameBoard {
 	
 	public void assignProperty(Property p, Player player) {
 		map.put(p, player);
+		player.changeMoney(-p.base);
 	}
 	
 	public BoardSpace getSpace(int i) {
