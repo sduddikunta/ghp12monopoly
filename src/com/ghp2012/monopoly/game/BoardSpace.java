@@ -17,11 +17,13 @@ public enum BoardSpace {
 			STATES_AVE("States Avenue",	Property.STATES_AVENUE), 
 			VIRGINIA_AVE("Virginia Avenue",	Property.VIRGINIA_AVENUE),
 			PENNSYLVANIA_RAILROAD("Pennsylvania Railroad", Property.PENNSYLVANIA_RAILROAD), 
-			ST_JAMES_PLACE("St. James Place", Property.ST_JAMES_PLACE), 
+			ST_JAMES_PLACE("St. James Place", Property.ST_JAMES_PLACE),
+			COMMUNITY_CHEST_2("Community Chest", 0),
 			TENNESSEE_AVE("Tennessee Avenue", Property.TENNESSEE_AVENUE),
 			NEW_YORK_AVE("New York Avenue", Property.NEW_YORK_AVENUE),
 			FREE_PARKING("Free Parking", 0),
 			KENTUCKY_AVE("Kentucky Avenue", Property.KENTUCKY_AVENUE),
+			CHANCE_2("Chance", 0),
 			INDIANA_AVE("Indiana Avenue", Property.INDIANA_AVENUE),
 			ILLINOIS_AVE("Illinois Avenue", Property.ILLINOIS_AVENUE),
 			B_AND_O_RAILROAD("B & O Railroad", Property.B_AND_O_RAILROAD),
@@ -31,12 +33,14 @@ public enum BoardSpace {
 			MARVIN_GARDENS("Marvin Gardens", Property.MARVIN_GARDENS),
 			GO_TO_JAIL("Go to Jail", 0),
 			PACIFIC_AVE("Pacific Avenue", Property.PACIFIC_AVENUE),
-			BOARDWALK("Boardwalk", Property.BOARDWALK),
-			LUXURY_TAX("Luxury Tax", 75), 
-			PARK_PLACE(	"Park Place", Property.PARK_PLACE), 
+			NORTH_CAROLINA("North Carolina Avenue", Property.NORTH_CAROLINA_AVENUE),
+			COMMUNITY_CHEST_3("Community Chest", 0),
+			PENNSYLVANIA_AVE("Pennsylvania Avenue", Property.PENNSYLVANIA_AVENUE),			
 			SHORT_LINE_RAILROAD("Short Line Railroad", Property.SHORT_LINE_RAILROAD),
-			PENNSYLVANIA_AVE("Pennsylvania Avenue", Property.PENNSYLVANIA_AVENUE), 
-			NORTH_CAROLINA("North Carolina Avenue", Property.NORTH_CAROLINA_AVENUE);
+			CHANCE_3("Chance", 0),
+			PARK_PLACE(	"Park Place", Property.PARK_PLACE),
+			LUXURY_TAX("Luxury Tax", 75),
+			BOARDWALK("Boardwalk", Property.BOARDWALK);
 			
 
 	public final String name;
