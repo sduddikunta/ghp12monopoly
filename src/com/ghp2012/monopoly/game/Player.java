@@ -66,4 +66,8 @@ public class Player {
 	public void setTurnsInJail(int turnsInJail) {
 		this.turnsInJail = turnsInJail;
 	}
+	
+	public int numProps() {
+		return properties.size();
+	}
 }

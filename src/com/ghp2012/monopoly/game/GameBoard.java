@@ -152,6 +152,7 @@ public class GameBoard {
 	public void assignProperty(Property p, Player player) {
 		map.put(p, player);
 		player.changeMoney(-p.initialPrice);
+		player.addProperty(p);
 	}
 	
 	public BoardSpace getSpace(int i) {

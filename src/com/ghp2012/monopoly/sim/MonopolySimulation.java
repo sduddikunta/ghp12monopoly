@@ -9,7 +9,7 @@ import com.ghp2012.monopoly.game.Player;
 public class MonopolySimulation {
 
 	private GameBoard board;
-	private int numHouses = 0;
+	public static final int numHouses = 0;
 
 	public MonopolySimulation() {
 		board = new GameBoard();
@@ -21,6 +21,7 @@ public class MonopolySimulation {
 		while (true) {
 			// TODO: Handle Go to Jail.
 			// TODO: Handle in jail.
+			// TODO: Handle Doubles.
 			Player current = board.getNextPlayer(); // Get a player
 			int[] roll = board.rollDice(); // Roll
 			current.setLocation((current.getLocation() + roll[0] + roll[1]) % 40); // Move
