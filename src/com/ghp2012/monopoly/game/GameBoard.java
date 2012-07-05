@@ -157,4 +157,8 @@ public class GameBoard {
 	public BoardSpace getSpace(int i) {
 		return spaces.get(i);
 	}
+	
+	public Player getByProperty(Property p) {
+		return map.get(p);
+	}
 }
