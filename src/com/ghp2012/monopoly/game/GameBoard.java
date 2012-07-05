@@ -2,6 +2,7 @@ package com.ghp2012.monopoly.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -24,6 +25,8 @@ public class GameBoard {
 	private ArrayBlockingQueue<Player> queue;
 	private List<Property> properties;
 	private List<BoardSpace> spaces;
+	private Player bank;
+	private HashMap<Property, Player> map;
 
 	/**
 	 * Makes a new gameboard.
@@ -35,6 +38,8 @@ public class GameBoard {
 		communityCards = new ArrayBlockingQueue<CommunityChestCard>(50);
 		properties = Arrays.asList(Property.values());
 		spaces = Arrays.asList(BoardSpace.values());
+		bank = new Player("The Bank", 0);
+		map = new HashMap<Property, Player>(40);
 	}
 
 	/**
@@ -72,6 +77,9 @@ public class GameBoard {
 			int r = random.nextInt(0, p.size());
 			chanceCards.add(ccards.get(r));
 			ccards.remove(r);
+		}
+		for (Property i : properties) {
+			map.put(i, bank);
 		}
 	}
 
@@ -139,5 +147,13 @@ public class GameBoard {
 
 	public void addProperty(Property p) {
 		properties.add(p);
+	}
+	
+	public void assignProperty(Property p, Player player) {
+		map.put(p, player);
+	}
+	
+	public BoardSpace getSpace(int i) {
+		return spaces.get(i);
 	}
 }
