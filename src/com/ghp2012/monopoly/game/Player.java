@@ -21,6 +21,8 @@ public class Player {
 	
 	public Player(String name, int money) {
 		this.name = name;
+		this.money = money;
+		properties = new ArrayList<Property>();
 	}
 	
 	public String getName() {

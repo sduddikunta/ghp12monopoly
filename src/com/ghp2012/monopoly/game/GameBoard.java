@@ -70,14 +70,13 @@ public class GameBoard {
 			queue.add(p.get(r));
 			p.remove(r);
 		}
-		List<CommunityChestCard> cards = Arrays.asList(CommunityChestCard
-				.values());
+		ArrayList<CommunityChestCard> cards = new ArrayList<CommunityChestCard>(Arrays.asList(CommunityChestCard.values()));
 		while (!cards.isEmpty()) {
 			int r = random.nextInt(0, cards.size());
 			communityCards.add(cards.get(r));
 			cards.remove(r);
 		}
-		List<ChanceCard> ccards = Arrays.asList(ChanceCard.values());
+		ArrayList<ChanceCard> ccards = new ArrayList<ChanceCard>(Arrays.asList(ChanceCard.values()));
 		while (!ccards.isEmpty()) {
 			int r = random.nextInt(0, ccards.size());
 			chanceCards.add(ccards.get(r));
