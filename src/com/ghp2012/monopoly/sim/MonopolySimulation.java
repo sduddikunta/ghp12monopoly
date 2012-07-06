@@ -20,7 +20,6 @@ public class MonopolySimulation {
 		board.beginGame();
 		while (true) {
 			int doublesCounter = 0;
-			// TODO: Handle Go to Jail.
 			// TODO: Handle in jail.
 			Player current = board.getNextPlayer(); // Get a player
 			while (true) {
@@ -33,6 +32,12 @@ public class MonopolySimulation {
 				int[] roll = board.rollDice(); // Roll
 				current.setLocation((current.getLocation() + roll[0] + roll[1]) % 40); // Move
 				BoardSpace location = board.getSpace(current.getLocation()); // Location
+				if (location.equals(BoardSpace.GO_TO_JAIL)) {
+					current.setLocation(10);
+					current.setTurnsInJail(0);
+					current.setInJail(true);
+					break;
+				}
 				if (current.getLocation() - roll[0] - roll[1] < 0 // Check for
 																	// pass GO
 						&& !location.equals(BoardSpace.GO)) {
