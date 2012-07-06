@@ -16,6 +16,7 @@ public class Player {
 	private boolean hasChanceJailCard;
 	private boolean hasCCJailCard;
 	private int turnsInJail = 0;
+	private boolean inJail = false;
 	
 	public Player(String name, int money) {
 		this.name = name;
@@ -28,8 +29,9 @@ public class Player {
 	public int getMoney() {
 		return money;
 	}
-	public void changeMoney(int howMuch){
+	public boolean changeMoney(int howMuch){
 		money = (money+howMuch);
+		return money > 0;
 	}
 	public void addProperty(Property p){
 		properties.add(p);
@@ -69,5 +71,13 @@ public class Player {
 	
 	public int numProps() {
 		return properties.size();
+	}
+
+	public boolean isInJail() {
+		return inJail;
+	}
+
+	public void setInJail(boolean inJail) {
+		this.inJail = inJail;
 	}
 }

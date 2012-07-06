@@ -22,65 +22,76 @@ public class MonopolySimulation {
 			// TODO: Handle Go to Jail.
 			// TODO: Handle in jail.
 			// TODO: Handle Doubles.
+			// TODO: Handle bankruptcy.
 			Player current = board.getNextPlayer(); // Get a player
 			int[] roll = board.rollDice(); // Roll
 			current.setLocation((current.getLocation() + roll[0] + roll[1]) % 40); // Move
 			BoardSpace location = board.getSpace(current.getLocation()); // Location
-			if (current.getLocation() - roll[0] - roll[1] < 0
+			if (current.getLocation() - roll[0] - roll[1] < 0 // Check for pass GO
 					&& !location.equals(BoardSpace.GO)) {
 				current.changeMoney(200);
 			}
-			if (location.prop != null) { // It's a property, pay rent
-				int rent = 0;
-				if (location.prop.base == -1) {
-					// It's a utility
-					rent = (roll[0] + roll[1]) * 10;
-				} else {
-					// It's not a utility, calculate normally
-					switch (numHouses) {
-					case 0:
-						rent = location.prop.base;
-						break;
-					case 1:
-						rent = location.prop.one;
-						break;
-					case 2:
-						rent = location.prop.two;
-						break;
-					case 3:
-						rent = location.prop.three;
-						break;
-					case 4:
-						rent = location.prop.four;
-						break;
-					case 5:
-						rent = location.prop.hotel;
-						break;
-					default:
-						// what....? Derped...
-						rent = Integer.MAX_VALUE;
-					}
-				}
-				// Got the rent, apply it
-				current.changeMoney(-rent);
-				board.getByProperty(location.prop).changeMoney(rent);
+			processSpace(current, location, roll);
+		}
+	}
+	
+	public void processSpace(Player current, BoardSpace location, int[] roll) {
+		if (location.prop != null) { // It's a property, pay rent
+			int rent = 0;
+			if (location.prop.base == -1) {
+				// It's a utility
+				rent = (roll[0] + roll[1]) * 10;
 			} else {
-				if (location.cost >= 0) {
-					current.changeMoney(-location.cost);
-				} else {
-					if (location.equals(BoardSpace.CHANCE)
-							|| location.equals(BoardSpace.CHANCE_2)
-							|| location.equals(BoardSpace.CHANCE_3)) {
-						ChanceCard c = board.getNextChanceCard();
-						// TODO: Do something with the chance card
-					} else if (location.equals(BoardSpace.COMMUNITY_CHEST)
-							|| location.equals(BoardSpace.COMMUNITY_CHEST_2)
-							|| location.equals(BoardSpace.COMMUNITY_CHEST_3)) {
-						CommunityChestCard c = board.getNextCommunityCard();
-						// TODO: Do something with the community chest card
-					}
+				// It's not a utility, calculate normally
+				switch (numHouses) {
+				case 0:
+					rent = location.prop.base;
+					break;
+				case 1:
+					rent = location.prop.one;
+					break;
+				case 2:
+					rent = location.prop.two;
+					break;
+				case 3:
+					rent = location.prop.three;
+					break;
+				case 4:
+					rent = location.prop.four;
+					break;
+				case 5:
+					rent = location.prop.hotel;
+					break;
+				default:
+					// what....? Derped...
+					rent = Integer.MAX_VALUE;
+					break;
+				}
+			}
+			// Got the rent, apply it
+			current.changeMoney(-rent);
+			board.getByProperty(location.prop).changeMoney(rent);
+		} else {
+			if (location.cost >= 0) {
+				current.changeMoney(-location.cost);
+			} else {
+				if (location.equals(BoardSpace.CHANCE)
+						|| location.equals(BoardSpace.CHANCE_2)
+						|| location.equals(BoardSpace.CHANCE_3)) {
+					ChanceCard c = board.getNextChanceCard();
+					// TODO: Do something with the chance card
+				} else if (location.equals(BoardSpace.COMMUNITY_CHEST)
+						|| location.equals(BoardSpace.COMMUNITY_CHEST_2)
+						|| location.equals(BoardSpace.COMMUNITY_CHEST_3)) {
+					CommunityChestCard c = board.getNextCommunityCard();
+					// TODO: Do something with the community chest card
 				}
 			}
 		}
 	}
+	
+	public void processSpace(Player p, int location, int[] roll) {
+		processSpace(p, board.getSpace(location), roll);
+	}
+	
 }

@@ -63,7 +63,7 @@ public class Card {
 			card = c;
 		}
 
-		public void doCard(Player p) {
+		public void doCard(Player p, MonopolySimulation sim, GameBoard board) {
 			switch (this) {
 			case REPAIRS:
 				switch (MonopolySimulation.numHouses) {
@@ -87,10 +87,87 @@ public class Card {
 				}
 				break;
 			case READING_RAILROAD:
+				if (p.getLocation() > 5)
+					p.changeMoney(200);
 				p.setLocation(5);
-				p.changeMoney(-Property.READING_RAILROAD.base);
+				sim.processSpace(p, p.getLocation(), null);
 				break;
-				//TODO: Finish chance cards
+			case PAY_TAX:
+				p.changeMoney(-15);
+				break;
+			case ADV_ILLINOIS_AVE:
+				if (p.getLocation() > 24)
+					p.changeMoney(200);
+				p.setLocation(24);
+				sim.processSpace(p, p.getLocation(), null);
+				break;
+			case GO_TO_JAIL:
+				p.setLocation(10);
+				p.setTurnsInJail(0);
+				p.setInJail(true);
+				break;
+			case GO_BACK:
+				p.setLocation(p.getLocation() - 3);
+				sim.processSpace(p, p.getLocation(), null);
+				break;
+			case GET_OUT_FREE:
+				p.setHasChanceJailCard(true);
+				break;
+			case DIVIDEND:
+				p.changeMoney(50);
+				break;
+			case CROSSWORD:
+				p.changeMoney(100);
+				break;
+			case CHAIRMAN_OF_BOARD:
+				p.changeMoney(-50 * (board.getPlayers().size() - 1));
+				for (Player i : board.getPlayers())
+					i.changeMoney(50);
+				break;
+			case BUILDING_LOAN:
+				p.changeMoney(150);
+				break;
+			case BOARDWALK:
+				p.setLocation(39);
+				sim.processSpace(p, p.getLocation(), null);
+				break;
+			case ADV_UTILITY:
+				if (p.getLocation() < 12)
+					p.setLocation(12);
+				else if (p.getLocation() < 28)
+					p.setLocation(28);
+				else {
+					p.setLocation(12);
+					p.changeMoney(200);
+				}
+				sim.processSpace(p, p.getLocation(), board.rollDice());
+				break;
+			case ADV_TO_GO:
+				p.setLocation(0);
+				sim.processSpace(p, p.getLocation(), null);
+				break;
+			case ADV_ST_CHARLES:
+				if (p.getLocation() > 11)
+					p.changeMoney(200);
+				p.setLocation(11);
+				sim.processSpace(p, p.getLocation(), null);
+				break;
+			case ADV_RAILROAD_2:
+			case ADV_RAILROAD_1:
+				if (p.getLocation() < 5)
+					p.setLocation(5);
+				else if (p.getLocation() < 15)
+					p.setLocation(15);
+				else if (p.getLocation() < 25)
+					p.setLocation(25);
+				else if (p.getLocation() < 35)
+					p.setLocation(35);
+				else {
+					p.setLocation(5);
+					p.changeMoney(200);
+				}
+				sim.processSpace(p, p.getLocation(), null);
+				break;
 			}
 		}
 	}
