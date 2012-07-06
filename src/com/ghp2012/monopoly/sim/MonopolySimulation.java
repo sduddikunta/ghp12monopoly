@@ -69,17 +69,16 @@ public class MonopolySimulation {
 				}
 			}
 			// Got the rent, apply it
-			current.changeMoney(-rent);
-			board.getByProperty(location.prop).changeMoney(rent);
+			board.attemptTransfer(current, board.getByProperty(location.prop), rent);
 		} else {
 			if (location.cost >= 0) {
-				current.changeMoney(-location.cost);
+				board.attemptTransfer(current, board.getBank(), location.cost);
 			} else {
 				if (location.equals(BoardSpace.CHANCE)
 						|| location.equals(BoardSpace.CHANCE_2)
 						|| location.equals(BoardSpace.CHANCE_3)) {
 					ChanceCard c = board.getNextChanceCard();
-					// TODO: Do something with the chance card
+					c.doCard(current, this, board);
 				} else if (location.equals(BoardSpace.COMMUNITY_CHEST)
 						|| location.equals(BoardSpace.COMMUNITY_CHEST_2)
 						|| location.equals(BoardSpace.COMMUNITY_CHEST_3)) {

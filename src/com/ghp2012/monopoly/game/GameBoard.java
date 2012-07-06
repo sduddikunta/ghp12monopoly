@@ -42,6 +42,10 @@ public class GameBoard {
 		map = new HashMap<Property, Player>(40);
 	}
 
+	public Player getBank() {
+		return bank;
+	}
+
 	/**
 	 * Returns the next player in the queue, adding the player to the end of the
 	 * line afterwards.
