@@ -22,7 +22,6 @@ public class MonopolySimulation {
 			// TODO: Handle Go to Jail.
 			// TODO: Handle in jail.
 			// TODO: Handle Doubles.
-			// TODO: Handle bankruptcy.
 			Player current = board.getNextPlayer(); // Get a player
 			int[] roll = board.rollDice(); // Roll
 			current.setLocation((current.getLocation() + roll[0] + roll[1]) % 40); // Move
@@ -83,7 +82,7 @@ public class MonopolySimulation {
 						|| location.equals(BoardSpace.COMMUNITY_CHEST_2)
 						|| location.equals(BoardSpace.COMMUNITY_CHEST_3)) {
 					CommunityChestCard c = board.getNextCommunityCard();
-					// TODO: Do something with the community chest card
+					c.doCard(current, this, board);
 				}
 			}
 		}
