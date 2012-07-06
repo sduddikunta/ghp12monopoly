@@ -17,6 +17,7 @@ public class Player {
 	private boolean hasCCJailCard;
 	private int turnsInJail = 0;
 	private boolean inJail = false;
+	private boolean bankrupt = false;
 	
 	public Player(String name, int money) {
 		this.name = name;
@@ -79,5 +80,13 @@ public class Player {
 
 	public void setInJail(boolean inJail) {
 		this.inJail = inJail;
+	}
+
+	public boolean isBankrupt() {
+		return bankrupt;
+	}
+
+	public void setBankrupt(boolean bankrupt) {
+		this.bankrupt = bankrupt;
 	}
 }

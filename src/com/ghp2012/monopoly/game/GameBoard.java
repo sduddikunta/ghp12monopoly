@@ -66,7 +66,8 @@ public class GameBoard {
 			queue.add(p.get(r));
 			p.remove(r);
 		}
-		List<CommunityChestCard> cards = Arrays.asList(CommunityChestCard.values());
+		List<CommunityChestCard> cards = Arrays.asList(CommunityChestCard
+				.values());
 		while (!cards.isEmpty()) {
 			int r = random.nextInt(0, cards.size());
 			communityCards.add(cards.get(r));
@@ -117,7 +118,7 @@ public class GameBoard {
 	 * @return a roll of the dice
 	 */
 	public int[] rollDice() {
-		return new int[]{random.nextInt(1, 7), random.nextInt(1, 7)};
+		return new int[] { random.nextInt(1, 7), random.nextInt(1, 7) };
 	}
 
 	// Getters, setters, other stuff
@@ -148,18 +149,30 @@ public class GameBoard {
 	public void addProperty(Property p) {
 		properties.add(p);
 	}
-	
+
 	public void assignProperty(Property p, Player player) {
 		map.put(p, player);
 		player.changeMoney(-p.initialPrice);
 		player.addProperty(p);
 	}
-	
+
 	public BoardSpace getSpace(int i) {
 		return spaces.get(i);
 	}
-	
+
 	public Player getByProperty(Property p) {
 		return map.get(p);
 	}
+
+	public void attemptTransfer(Player p1, Player p2, int amount) {
+		if (p1.getMoney() - amount < 0) { // We're bankrupt :(
+			p2.changeMoney(p1.getMoney());
+			p1.changeMoney(-p1.getMoney());
+			p1.setBankrupt(true);
+		} else { // Not bankrupt
+			p1.changeMoney(-amount);
+			p2.changeMoney(amount);
+		}
+	}
+
 }
