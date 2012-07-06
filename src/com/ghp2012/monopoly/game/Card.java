@@ -232,6 +232,92 @@ public class Card {
 		private CommunityChestCard(Card c) {
 			card = c;
 		}
+
+		public void doCard(Player p, MonopolySimulation sim, GameBoard board) {
+			switch (this) {
+			case STREET_REPAIRS:
+				switch (MonopolySimulation.numHouses) {
+				case 1:
+					board.attemptTransfer(p, board.getBank(), 40 * p.numProps());
+					break;
+				case 2:
+					board.attemptTransfer(p, board.getBank(), 80 * p.numProps());
+					break;
+				case 3:
+					board.attemptTransfer(p, board.getBank(),
+							120 * p.numProps());
+					break;
+				case 4:
+					board.attemptTransfer(p, board.getBank(),
+							160 * p.numProps());
+					break;
+				case 5:
+					board.attemptTransfer(p, board.getBank(),
+							115 * p.numProps());
+					break;
+				}
+				break;
+			case SECOND_PRIZE_BEAUTY:
+				p.changeMoney(10);
+				break;
+			case SALE_OF_STOCK:
+				p.changeMoney(50);
+				break;
+			case RECEIVE_CONSULTANCY_FEE:
+				p.changeMoney(25);
+				break;
+			case PAY_SCHOOL_FEES:
+				board.attemptTransfer(p, board.getBank(), 50);
+				break;
+			case PAY_HOSPITAL_FEES:
+				board.attemptTransfer(p, board.getBank(), 100);
+				break;
+			case OUT_OF_JAIL:
+				p.setHasCCJailCard(true);
+				break;
+			case LIFE_INSURANCE_MATURES:
+				p.changeMoney(100);
+				break;
+			case INHERITANCE:
+				p.changeMoney(100);
+				break;
+			case INCOME_TAX_REFUND:
+				p.changeMoney(20);
+				break;
+			case HOLIDAY_FUND_MATURES:
+				p.changeMoney(100);
+				break;
+			case GRAND_OPERA:
+				for (Player i : board.getPlayers()) {
+					if (i.getName().equals(p.getName()))
+						continue;
+					board.attemptTransfer(i, p, 50);
+				}
+				break;
+			case GO_TO_JAIL:
+				p.setLocation(10);
+				p.setTurnsInJail(0);
+				p.setInJail(true);
+				break;
+			case ADV_TO_GO:
+				p.setLocation(0);
+				sim.processSpace(p, p.getLocation(), null);
+				break;
+			case BANK_ERROR_IN_FAVOR:
+				p.changeMoney(200);
+				break;
+			case BIRTHDAY:
+				for (Player i : board.getPlayers()) {
+					if (i.getName().equals(p.getName()))
+						continue;
+					board.attemptTransfer(i, p, 10);
+				}
+				break;
+			case DOCTOR_FEES:
+				board.attemptTransfer(p, board.getBank(), 50);
+				break;
+			}
+		}
 	}
 
 	private String name;
