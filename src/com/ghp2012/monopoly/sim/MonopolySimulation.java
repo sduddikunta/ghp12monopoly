@@ -20,8 +20,41 @@ public class MonopolySimulation {
 		board.beginGame();
 		while (true) {
 			int doublesCounter = 0;
-			// TODO: Handle in jail.
 			Player current = board.getNextPlayer(); // Get a player
+			if (current.isInJail()) {
+				current.setTurnsInJail(current.getTurnsInJail() + 1);
+				if (current.getTurnsInJail() == 3) { // Must leave
+					boolean usedCard = false;
+					if (current.hasChanceJailCard()) {
+						current.setHasChanceJailCard(false);
+						usedCard = true;
+						board.addChanceCard(ChanceCard.GET_OUT_FREE);
+					} else if (current.hasCCJailCard()) {
+						current.setHasCCJailCard(false);
+						usedCard = true;
+						board.addCommunityChestCard(CommunityChestCard.OUT_OF_JAIL);
+					}
+					int[] roll = board.rollDice(); // Roll
+					if (!usedCard) { // Pay if we haven't used a card
+						if (roll[0] != roll[1])
+							board.attemptTransfer(current, board.getBank(), 50);
+					}
+					if (current.isBankrupt()) { // Check for bankruptcy on
+												// getting out of jail
+						continue;
+					}
+					current.setLocation((current.getLocation() + roll[0] + roll[1]) % 40); // Move
+					BoardSpace location = board.getSpace(current.getLocation()); // Location
+					processSpace(current, location, roll);
+				} else { // We don't have to leave
+					int[] roll = board.rollDice(); // Roll
+					if (roll[0] == roll[1])  { // Never mind, yes we do
+						current.setLocation((current.getLocation() + roll[0] + roll[1]) % 40); // Move
+						BoardSpace location = board.getSpace(current.getLocation()); // Location
+						processSpace(current, location, roll);
+					}
+				}
+			}
 			while (true) {
 				if (doublesCounter == 3) {
 					current.setLocation(10);
