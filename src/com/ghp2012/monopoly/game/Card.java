@@ -26,9 +26,11 @@ public class Card {
 				new Card(
 						"adv_railroad_2",
 						"Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
-						true)), ADV_ST_CHARLES(new Card("adv_st_charles",
-				"Advance to St. Charles Place – if you pass Go, collect $200",
-				true)), DIVIDEND(new Card("dividend",
+						true)), ADV_ST_CHARLES(
+				new Card(
+						"adv_st_charles",
+						"Advance to St. Charles Place – if you pass Go, collect $200",
+						true)), DIVIDEND(new Card("dividend",
 				"Bank pays you dividend of $50", true)), GET_OUT_FREE(
 				new Card(
 						"get_out_free",
@@ -68,19 +70,21 @@ public class Card {
 			case REPAIRS:
 				switch (MonopolySimulation.numHouses) {
 				case 1:
-					p.changeMoney(-25 * p.numProps());
+					board.attemptTransfer(p, board.getBank(), 25 * p.numProps());
 					break;
 				case 2:
-					p.changeMoney(-50 * p.numProps());
+					board.attemptTransfer(p, board.getBank(), 50 * p.numProps());
 					break;
 				case 3:
-					p.changeMoney(-75 * p.numProps());
+					board.attemptTransfer(p, board.getBank(), 75 * p.numProps());
 					break;
 				case 4:
-					p.changeMoney(-100 * p.numProps());
+					board.attemptTransfer(p, board.getBank(),
+							100 * p.numProps());
 					break;
 				case 5:
-					p.changeMoney(-100 * p.numProps());
+					board.attemptTransfer(p, board.getBank(),
+							100 * p.numProps());
 					break;
 				default:
 					break;
@@ -93,7 +97,7 @@ public class Card {
 				sim.processSpace(p, p.getLocation(), null);
 				break;
 			case PAY_TAX:
-				p.changeMoney(-15);
+				board.attemptTransfer(p, board.getBank(), 15);
 				break;
 			case ADV_ILLINOIS_AVE:
 				if (p.getLocation() > 24)
@@ -120,9 +124,22 @@ public class Card {
 				p.changeMoney(100);
 				break;
 			case CHAIRMAN_OF_BOARD:
-				p.changeMoney(-50 * (board.getPlayers().size() - 1));
-				for (Player i : board.getPlayers())
-					i.changeMoney(50);
+				if (p.getMoney() < (50 * (board.getPlayers().size() - 1))) {
+					p.changeMoney(-p.getMoney());
+					for (Player i : board.getPlayers()) {
+						if (i.getName().equals(p.getName()))
+							continue;
+						i.changeMoney(p.getMoney()
+								/ (board.getPlayers().size() - 1));
+					}
+				} else {
+					p.changeMoney(-50 * (board.getPlayers().size() - 1));
+					for (Player i : board.getPlayers()) {
+						if (i.getName().equals(p.getName()))
+							continue;
+						i.changeMoney(50);
+					}
+				}
 				break;
 			case BUILDING_LOAN:
 				p.changeMoney(150);
