@@ -173,6 +173,7 @@ public class GameBoard {
 			p2.changeMoney(p1.getMoney());
 			p1.changeMoney(-p1.getMoney());
 			p1.setBankrupt(true);
+			queue.remove(p1);
 		} else { // Not bankrupt
 			p1.changeMoney(-amount);
 			p2.changeMoney(amount);

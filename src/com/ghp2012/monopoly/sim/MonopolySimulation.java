@@ -19,21 +19,34 @@ public class MonopolySimulation {
 		GameInfo.fillGame(board);
 		board.beginGame();
 		while (true) {
+			int doublesCounter = 0;
 			// TODO: Handle Go to Jail.
 			// TODO: Handle in jail.
-			// TODO: Handle Doubles.
 			Player current = board.getNextPlayer(); // Get a player
-			int[] roll = board.rollDice(); // Roll
-			current.setLocation((current.getLocation() + roll[0] + roll[1]) % 40); // Move
-			BoardSpace location = board.getSpace(current.getLocation()); // Location
-			if (current.getLocation() - roll[0] - roll[1] < 0 // Check for pass GO
-					&& !location.equals(BoardSpace.GO)) {
-				current.changeMoney(200);
+			while (true) {
+				if (doublesCounter == 3) {
+					current.setLocation(10);
+					current.setTurnsInJail(0);
+					current.setInJail(true);
+					break;
+				}
+				int[] roll = board.rollDice(); // Roll
+				current.setLocation((current.getLocation() + roll[0] + roll[1]) % 40); // Move
+				BoardSpace location = board.getSpace(current.getLocation()); // Location
+				if (current.getLocation() - roll[0] - roll[1] < 0 // Check for
+																	// pass GO
+						&& !location.equals(BoardSpace.GO)) {
+					current.changeMoney(200);
+				}
+				processSpace(current, location, roll);
+				if (roll[0] != roll[1]) { // We did not roll doubles
+					break;
+				} else
+					doublesCounter++;
 			}
-			processSpace(current, location, roll);
 		}
 	}
-	
+
 	public void processSpace(Player current, BoardSpace location, int[] roll) {
 		if (location.prop != null) { // It's a property, pay rent
 			int rent = 0;
@@ -68,7 +81,8 @@ public class MonopolySimulation {
 				}
 			}
 			// Got the rent, apply it
-			board.attemptTransfer(current, board.getByProperty(location.prop), rent);
+			board.attemptTransfer(current, board.getByProperty(location.prop),
+					rent);
 		} else {
 			if (location.cost >= 0) {
 				board.attemptTransfer(current, board.getBank(), location.cost);
@@ -87,9 +101,9 @@ public class MonopolySimulation {
 			}
 		}
 	}
-	
+
 	public void processSpace(Player p, int location, int[] roll) {
 		processSpace(p, board.getSpace(location), roll);
 	}
-	
+
 }
