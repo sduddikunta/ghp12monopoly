@@ -13,7 +13,7 @@ import com.ghp2012.monopoly.sim.MonopolySimulation;
  */
 public class Main {
 	public static void main(String[] args) throws Exception {
-		final int TIMES_TO_RUN = 10000;
+		final int TIMES_TO_RUN = Integer.parseInt(args[0]);
 		PrintStream s = System.out;
 		System.setOut(new PrintStream("/dev/null"));
 		int[] results = new int[8];
