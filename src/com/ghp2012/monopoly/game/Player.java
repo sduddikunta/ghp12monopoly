@@ -1,6 +1,7 @@
 package com.ghp2012.monopoly.game;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a player.
@@ -90,5 +91,9 @@ public class Player {
 
 	public void setBankrupt(boolean bankrupt) {
 		this.bankrupt = bankrupt;
+	}
+	
+	public List<Property> getProperties() {
+		return properties;
 	}
 }

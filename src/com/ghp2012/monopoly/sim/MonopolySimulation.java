@@ -9,34 +9,63 @@ import com.ghp2012.monopoly.game.Card.ChanceCard;
 import com.ghp2012.monopoly.game.Card.CommunityChestCard;
 import com.ghp2012.monopoly.game.GameBoard;
 import com.ghp2012.monopoly.game.Player;
+import com.ghp2012.monopoly.game.Property;
 
 public class MonopolySimulation {
 
 	private GameBoard board;
-	public static final int numHouses = 0;
+	public static final int numHouses = 5;
+	private boolean gameover = false;
 
 	public MonopolySimulation() {
 		board = new GameBoard();
 	}
 
-	public void simulate() {
+	public int simulate() {
 		GameInfo.fillGame(board);
 		board.beginGame();
-		BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+		//BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
-			try {
-				r.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			System.out.println();
+			//try {
+			//	r.readLine();
+			//} catch (IOException e) {
+			//	e.printStackTrace();
+			//}
 			int doublesCounter = 0;
 			Player current = board.getNextPlayer(); // Get a player
+			if (gameover) {
+				System.out.println("The game is over.");
+				System.out.println(current.getName() + " has won the game.");
+				System.out.println(current.getName() + " had properties:");
+				for (Property p : current.getProperties()) {
+					System.out.println(p.name);
+				}
+				if (current.getProperties().contains(Property.MEDITERRANEAN_AVENUE)) {
+					return 1;
+				} else if (current.getProperties().contains(Property.ORIENTAL_AVENUE)) {
+					return 2;
+				} else if (current.getProperties().contains(Property.ST_CHARLES_PLACE)) {
+					return 3;
+				} else if (current.getProperties().contains(Property.ST_JAMES_PLACE)) {
+					return 4;
+				} else if (current.getProperties().contains(Property.KENTUCKY_AVENUE)) {
+					return 5;
+				} else if (current.getProperties().contains(Property.ATLANTIC_AVENUE)) {
+					return 6;
+				} else if (current.getProperties().contains(Property.PACIFIC_AVENUE)) {
+					return 7;
+				} else if (current.getProperties().contains(Property.PARK_PLACE)) {
+					return 8;
+				} else return 0;
+			}
 			System.out.println("It is " + current.getName() + "'s turn.");
 			System.out.println(current.getName() + " currently has $" + current.getMoney() + ".");
 			if (current.isInJail()) {
 				System.out.println(current.getName() + " is in jail.");
 				current.setTurnsInJail(current.getTurnsInJail() + 1);
-				if (current.getTurnsInJail() == 3) { // Must leave
+				if (current.getTurnsInJail() >= 3) { // Must leave
+					current.setInJail(false);
 					System.out.println(current.getName() + " must leave.");
 					boolean usedCard = false;
 					if (current.hasChanceJailCard()) {
@@ -77,6 +106,7 @@ public class MonopolySimulation {
 							+ (roll[0] + roll[1]) + " (" + roll[0] + ", "
 							+ roll[1] + ").");
 					if (roll[0] == roll[1]) { // Never mind, yes we do
+						current.setInJail(false);
 						current.setLocation((current.getLocation() + roll[0] + roll[1]) % 40); // Move
 						BoardSpace location = board.getSpace(current
 								.getLocation()); // Location
@@ -85,6 +115,10 @@ public class MonopolySimulation {
 						processSpace(current, location, roll);
 					}
 				}
+				if (board.getPlayersLeft() < 2) {
+					gameover = true;
+				}
+				continue;
 			}
 			while (true) {
 				if (doublesCounter == 3) {
@@ -124,6 +158,9 @@ public class MonopolySimulation {
 			}
 			System.out.println(current.getName() + " now has $"
 					+ current.getMoney() + ".");
+			if (board.getPlayersLeft() < 2) {
+				gameover = true;
+			}
 		}
 	}
 

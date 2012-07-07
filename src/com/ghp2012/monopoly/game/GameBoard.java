@@ -8,6 +8,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import com.ghp2012.monopoly.game.Card.ChanceCard;
 import com.ghp2012.monopoly.game.Card.CommunityChestCard;
+import com.ghp2012.monopoly.sim.MonopolySimulation;
 import com.ghp2012.monopoly.sim.RandomSource;
 import com.ghp2012.monopoly.sim.SecureRandomSource;
 
@@ -40,6 +41,9 @@ public class GameBoard {
 		spaces = Arrays.asList(BoardSpace.values());
 		bank = new Player("The Bank", 0);
 		map = new HashMap<Property, Player>(40);
+		for (Property i : properties) {
+			map.put(i, bank);
+		}
 	}
 
 	public Player getBank() {
@@ -70,20 +74,19 @@ public class GameBoard {
 			queue.add(p.get(r));
 			p.remove(r);
 		}
-		ArrayList<CommunityChestCard> cards = new ArrayList<CommunityChestCard>(Arrays.asList(CommunityChestCard.values()));
+		ArrayList<CommunityChestCard> cards = new ArrayList<CommunityChestCard>(
+				Arrays.asList(CommunityChestCard.values()));
 		while (!cards.isEmpty()) {
 			int r = random.nextInt(0, cards.size());
 			communityCards.add(cards.get(r));
 			cards.remove(r);
 		}
-		ArrayList<ChanceCard> ccards = new ArrayList<ChanceCard>(Arrays.asList(ChanceCard.values()));
+		ArrayList<ChanceCard> ccards = new ArrayList<ChanceCard>(
+				Arrays.asList(ChanceCard.values()));
 		while (!ccards.isEmpty()) {
 			int r = random.nextInt(0, ccards.size());
 			chanceCards.add(ccards.get(r));
 			ccards.remove(r);
-		}
-		for (Property i : properties) {
-			map.put(i, bank);
 		}
 	}
 
@@ -156,6 +159,7 @@ public class GameBoard {
 	public void assignProperty(Property p, Player player) {
 		map.put(p, player);
 		player.changeMoney(-p.initialPrice);
+		player.changeMoney(-p.houseCost * MonopolySimulation.numHouses);
 		player.addProperty(p);
 	}
 
@@ -172,11 +176,16 @@ public class GameBoard {
 			p2.changeMoney(p1.getMoney());
 			p1.changeMoney(-p1.getMoney());
 			p1.setBankrupt(true);
-			queue.remove(p1);
+			if (queue.size() > 1)
+				queue.remove(p1);
 		} else { // Not bankrupt
 			p1.changeMoney(-amount);
 			p2.changeMoney(amount);
 		}
+	}
+
+	public int getPlayersLeft() {
+		return queue.size();
 	}
 
 }
