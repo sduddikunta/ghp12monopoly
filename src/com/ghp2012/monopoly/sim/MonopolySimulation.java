@@ -1,9 +1,5 @@
 package com.ghp2012.monopoly.sim;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import com.ghp2012.monopoly.game.BoardSpace;
 import com.ghp2012.monopoly.game.Card.ChanceCard;
 import com.ghp2012.monopoly.game.Card.CommunityChestCard;
@@ -150,7 +146,7 @@ public class MonopolySimulation {
 					current.changeMoney(200);
 				}
 				processSpace(current, location, roll);
-				if (roll[0] != roll[1]) { // We did not roll doubles
+				if (roll[0] != roll[1] || current.getLocation() == 10) { // We did not roll doubles
 					break;
 				} else
 					doublesCounter++;

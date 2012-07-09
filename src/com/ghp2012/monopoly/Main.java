@@ -1,6 +1,5 @@
 package com.ghp2012.monopoly;
 
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
 import com.ghp2012.monopoly.sim.MonopolySimulation;
