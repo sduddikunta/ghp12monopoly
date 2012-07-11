@@ -10,14 +10,15 @@ import com.ghp2012.monopoly.game.Property;
 public class MonopolySimulation {
 
 	private GameBoard board;
-	public static final int numHouses = 5;
+	public static int numHouses = 5;
 	private boolean gameover = false;
 
 	public MonopolySimulation() {
-		board = new GameBoard();
 	}
 
-	public int simulate() {
+	public int simulate() throws Exception {
+		gameover = false;
+		board = new GameBoard();
 		GameInfo.fillGame(board);
 		board.beginGame();
 		//BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
@@ -30,6 +31,11 @@ public class MonopolySimulation {
 			//}
 			int doublesCounter = 0;
 			Player current = board.getNextPlayer(); // Get a player
+			if (current.isBankrupt() || current.getMoney() < 0) {
+				board.removePlayer(current);
+				current.setBankrupt(true);
+				continue;
+			}
 			if (gameover) {
 				System.out.println("The game is over.");
 				System.out.println(current.getName() + " has won the game.");
@@ -146,7 +152,7 @@ public class MonopolySimulation {
 					current.changeMoney(200);
 				}
 				processSpace(current, location, roll);
-				if (roll[0] != roll[1] || current.getLocation() == 10) { // We did not roll doubles
+				if (roll[0] != roll[1] || current.getLocation() == 10 || current.isBankrupt()) { // We did not roll doubles
 					break;
 				} else
 					doublesCounter++;

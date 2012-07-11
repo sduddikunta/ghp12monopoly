@@ -142,6 +142,7 @@ public class GameBoard {
 
 	public void removePlayer(Player p) {
 		players.remove(p);
+		queue.remove(p);
 	}
 
 	public void addChanceCard(ChanceCard c) {
@@ -172,9 +173,11 @@ public class GameBoard {
 	}
 
 	public void attemptTransfer(Player p1, Player p2, int amount) {
-		if (p1.getMoney() - amount < 0) { // We're bankrupt :(
-			p2.changeMoney(p1.getMoney());
-			p1.changeMoney(-p1.getMoney());
+		if ((p1.getMoney() - amount < 0) && !p1.getName().equals(p2.getName())) { // We're bankrupt :(
+			if (p1.getMoney() > 0) {
+				p2.changeMoney(p1.getMoney());
+				p1.changeMoney(-p1.getMoney());
+			}
 			p1.setBankrupt(true);
 			if (queue.size() > 1)
 				queue.remove(p1);

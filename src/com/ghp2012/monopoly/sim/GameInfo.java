@@ -1,12 +1,19 @@
 package com.ghp2012.monopoly.sim;
 
+import java.security.SecureRandom;
+
 import com.ghp2012.monopoly.game.GameBoard;
 import com.ghp2012.monopoly.game.Player;
 import com.ghp2012.monopoly.game.Property;
 
 public class GameInfo {
 	
-	public static final int STARTING_MONEY = 5000;
+	public static int STARTING_MONEY = 5000;
+	private static SecureRandom r;
+	
+	static {
+		r = new SecureRandom();
+	}
 	
 	public static void fillGame(GameBoard g) {
 		g.addPlayer(new Player("Player 1", STARTING_MONEY));
@@ -41,7 +48,7 @@ public class GameInfo {
 		// g.assignProperty(Property.BOARDWALK, g.getPlayer(7));
 		for (Player p : g.getPlayers()) {
 			while (true) {
-				switch (g.rollDice()[0]) {
+				switch (r.nextInt(8)+1) {
 				case 1:
 					if (!g.getByProperty(Property.MEDITERRANEAN_AVENUE).equals(g.getBank())) continue;
 					g.assignProperty(Property.MEDITERRANEAN_AVENUE, p);
