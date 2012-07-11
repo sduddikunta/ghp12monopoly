@@ -27,6 +27,7 @@
 
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
     <jar jarfile="${dist}/Monopoly.jar" basedir="${build}"/>
+    <copy file="${dist}/Monopoly.jar" todir="."/>
   </target>
 
   <target name="clean"
