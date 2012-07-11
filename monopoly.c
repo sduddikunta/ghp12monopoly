@@ -218,17 +218,16 @@ void simulate(int money, int num_games, int num_houses)
 	char mesg4[] = "Press any key to exit";
 	mvprintw(22, (col-strlen(mesg4))/2, mesg4);
 	getch();
+	mainScreen(num_games, num_houses, money);
 }
 
-void mainScreen()
+void mainScreen(int num_games, int num_houses, int num_money)
 {
+	clear();
 	curs_set(1);
 	char mesg[] = "GHP Mathematics Majors 2012";
 	int indent = 2;
 	int row, col;
-	int num_games = 100;
-	int num_houses = 0;
-	int num_money = 5000;
 	attron(A_BOLD);
 	getmaxyx(stdscr,row,col);
 	mvprintw(0,(col-strlen(mesg))/2,"%s", mesg);
@@ -380,7 +379,7 @@ int main()
 	char* locale = setlocale(LC_ALL, "");
 	initscr();			/* Start curses mode 		  */
 	start_color();
-	mainScreen();
+	mainScreen(100, 0, 5000);
 	endwin();			/* End curses mode		  */
 	return 0;
 }
