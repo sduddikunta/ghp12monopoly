@@ -176,7 +176,7 @@ public class MonopolySimulation {
 				// It's not a utility, calculate normally
 				switch (numHouses) {
 				case 0:
-					rent = location.prop.base;
+					rent = 2*location.prop.base;
 					break;
 				case 1:
 					rent = location.prop.one;
